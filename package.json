@@ -1,0 +1,7 @@
+{
+  "name": "crypto-raffle",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jake Lin <jakelinau@gmail.com>",
+  "license": "MIT"
+}
