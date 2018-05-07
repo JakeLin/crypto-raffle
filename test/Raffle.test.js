@@ -1,3 +1,6 @@
+const Web3 = require('web3');
+web3 = new Web3(web3.currentProvider);
+
 const Raffle = artifacts.require('./Raffle.sol');
 
 contract('Raffle', async (accounts) => {

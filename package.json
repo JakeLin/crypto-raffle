@@ -3,5 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Jake Lin <jakelinau@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "description": "Crypto Raffle",
+  "repository": "https://github.com/JakeLin/crypto-raffle",
+  "dependencies": {
+    "truffle-contract": "^3.0.5",
+    "web3": "^1.0.0-beta.34"
+  }
 }
