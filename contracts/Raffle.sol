@@ -50,13 +50,13 @@ contract Raffle {
     using SafeMath for uint;
 
     address public owner;
-    address[] public players;
+    address[] private players;
 
     constructor() public {
         owner = msg.sender;
     }
 
-    function buy() public payable {
+    function buy() external payable {
         require(msg.value >= .01 ether);
         uint numberOfeEtries = msg.value.div(.01 ether);
         for (uint index = 0; index < numberOfeEtries; index++) {
@@ -64,7 +64,7 @@ contract Raffle {
         }
     }
 
-    function getPlayers() public view returns (address[]) {
+    function getPlayers() external view returns (address[]) {
         return players;
     }
 
@@ -73,7 +73,9 @@ contract Raffle {
         _;
     }
 
-    function pickWinner() public onlyOwner {
+    function pickWinner() external onlyOwner {
+        require(players.length > 0);
+    
         uint index = random() % players.length;
         players[index].transfer(address(this).balance);
         players = new address[](0);
