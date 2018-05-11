@@ -26,3 +26,44 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.account-info {
+  margin-top: 20px;
+}
+
+.account-info div {
+  margin-top: 10px;
+}
+
+.message {
+  font-size: large;
+  margin-top: 20px;
+}
+
+.error-message {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}
+
+.entry-input {
+  width: 120px;
+  height: 24px;
+  font-size: 14px;
+  margin-left: 8px;
+  border-radius: 4px;
+  border: 1px solid #A9A9A9;
+  padding-left: 4px;
+}
+
+.buy-button {
+  margin-top: 10px;
+  width: 100px;
+  height: 30px;
+  background-color: deepskyblue;
+  color: white;
+  font-size: 14px;
+  border-radius: 4px;
+}
