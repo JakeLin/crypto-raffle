@@ -47,7 +47,7 @@ class App extends Component {
       }
     } catch(e) {
       console.error(e);
-      this.setState({ response: { hasError: true, message: 'Something went wrong!' } });
+      this.setState({ hasError: true, message: 'Something went wrong!' });
     }
   }
 
@@ -63,7 +63,7 @@ class App extends Component {
     }
 
     return (
-      <span> Loading balance info... </span>
+      <span> Loading contract info... </span>
     );
   }
 
@@ -73,8 +73,17 @@ class App extends Component {
     );
   }
 
+  onEntriesInputChange = event => {
+    const value = Math.trunc(event.target.value);
+    this.setState({ numberOfRaffle: value })
+  }
+
   onBuySubmit = async event => {
     event.preventDefault();
+    if (this.state.numberOfRaffle <= 0) {
+      this.setState({ hasError: true, message: 'Entries must be greater than 0!' });
+      return;
+    }
 
     this.setState({ hasError: false, message: 'Waiting on transaction success...' });
 
@@ -92,7 +101,7 @@ class App extends Component {
 
     } catch(e) {
       console.error(e);
-      this.setState({ response: { hasError: true, message: 'Something went wrong!' } });
+      this.setState({ hasError: true, message: 'Something went wrong!' });
       return;
     }
     
@@ -101,6 +110,11 @@ class App extends Component {
 
   onPickWinnerSubmit = async event => {
     event.preventDefault();
+    if (this.state.balance === '0') {
+      this.setState({ hasError: true, message: 'No ether in the contract!' });
+      return;
+    }
+
     this.setState({ hasError: false, message: 'Waiting on transaction success...' });
 
     try {
@@ -115,7 +129,7 @@ class App extends Component {
 
     } catch(e) {
       console.error(e);
-      this.setState({ response: { hasError: true, message: 'Something went wrong!' } });
+      this.setState({ hasError: true, message: 'Something went wrong!' });
       return;
     }
 
@@ -139,8 +153,9 @@ class App extends Component {
                   className="entry-input"
                   type="number"
                   placeholder="e.g. 1, 3, or 10"
+                  required="true"
                   value={this.state.numberOfRaffle}
-                  onChange={event => this.setState({ numberOfRaffle: event.target.value })}/>
+                  onChange={this.onEntriesInputChange}/>
               </label>
             </div>
             <button className="button">Buy</button>
