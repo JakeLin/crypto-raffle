@@ -73,14 +73,13 @@ class App extends Component {
     );
   }
 
-  onSubmit = async event => {
+  onBuySubmit = async event => {
     event.preventDefault();
 
     this.setState({ hasError: false, message: 'Waiting on transaction success...' });
 
     try {
       const ether = (this.state.numberOfRaffle * 0.01).toString();
-      console.log(ether);
       await this.state.raffle.methods.buy().send({
         from: this.state.accounts[0],
         value: this.state.web3.utils.toWei(ether, 'ether')
@@ -100,6 +99,29 @@ class App extends Component {
     this.setState({ hasError: false, message: 'You are in, good luck!' });
   };
 
+  onPickWinnerSubmit = async event => {
+    event.preventDefault();
+    this.setState({ hasError: false, message: 'Waiting on transaction success...' });
+
+    try {
+      await this.state.raffle.methods.pickWinner().send({
+        from: this.state.accounts[0]
+      });
+
+      // Refresh the balance
+      const balanceInWei = await this.state.web3.eth.getBalance(this.state.contractAddress);
+      const balance = this.state.web3.utils.fromWei(balanceInWei);
+      this.setState({ balance });
+
+    } catch(e) {
+      console.error(e);
+      this.setState({ response: { hasError: true, message: 'Something went wrong!' } });
+      return;
+    }
+
+    this.setState({ hasError: false, message: 'Ether has transferred to the winner!' });
+  }
+
   render() {
     return (
       <div className="App">
@@ -109,7 +131,7 @@ class App extends Component {
         </header>
         <div>
           <div className="account-info">{this.renderContractInfo()}</div>
-          <form className={this.state.contractLoaded ? "" : "hidden"} onSubmit={this.onSubmit}>
+          <form className={this.state.contractLoaded ? "" : "hidden"} onSubmit={this.onBuySubmit}>
             <h4>Try your luck, 0.01 ether per raffle</h4>
             <div>
               <label>Amount of entries to buy: 
@@ -121,7 +143,12 @@ class App extends Component {
                   onChange={event => this.setState({ numberOfRaffle: event.target.value })}/>
               </label>
             </div>
-            <button className="buy-button">Buy</button>
+            <button className="button">Buy</button>
+          </form>
+
+          <form className={this.state.contractLoaded ? "" : "hidden"} onSubmit={this.onPickWinnerSubmit}>
+            <h4>Owner of the contract</h4>
+            <button className="button pick-winner">Pick the winner</button>
           </form>
           <div className="message">{this.renderMessage()}</div>
         </div>

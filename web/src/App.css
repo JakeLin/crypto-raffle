@@ -58,7 +58,7 @@
   padding-left: 4px;
 }
 
-.buy-button {
+.button {
   margin-top: 10px;
   width: 100px;
   height: 30px;
@@ -66,4 +66,9 @@
   color: white;
   font-size: 14px;
   border-radius: 4px;
+}
+
+.pick-winner {
+  margin-top: 0;
+  width: 140px;
 }
