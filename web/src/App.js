@@ -4,9 +4,10 @@ import Web3 from 'web3';
 import logo from './logo.svg';
 import './App.css';
 
-const { abi } = require('./contracts/Raffle.json');
+const { abi, networks } = require('./contracts/Raffle.json');
 
-const address = '0x2529e5993f752c9d50fe43b8df45e8574817c7dd';
+// Support ropsten testnet
+const address = networks['3'].address;
 
 class App extends Component {
   state = {
@@ -35,12 +36,13 @@ class App extends Component {
         }
 
         const raffle = new web3.eth.Contract(abi, address)
+        const network = await web3.eth.net.getNetworkType();
         const owner = await raffle.methods.owner().call();
         const players = await raffle.methods.getPlayers().call();
         const contractAddress = raffle.options.address;
         const balanceInWei = await web3.eth.getBalance(contractAddress);
         const balance = web3.utils.fromWei(balanceInWei);
-        this.setState({ web3, raffle, owner, players, contractAddress, balance, accounts, contractLoaded: true });
+        this.setState({ web3, raffle, owner, players, contractAddress, balance, accounts, network, contractLoaded: true });
       } else {
         console.log('No Web3 Detected!');
         this.setState({ hasError: true, message: 'Please install MetaMask to use this app!' });
@@ -56,8 +58,9 @@ class App extends Component {
       const url = `//ropsten.etherscan.io/address/${this.state.contractAddress}`
       return (
         <div>
-          <div> Contract address: <a href={url} target="_blank">{this.state.contractAddress}</a> </div>
-          <div> Contract balance: <b>{this.state.balance} ether</b> </div>
+          <div>Network: <b>{this.state.network}</b></div>
+          <div>Contract address: <a href={url} target="_blank">{this.state.contractAddress}</a></div>
+          <div>Contract balance: <b>{this.state.balance} ether</b></div>
         </div>
       );
     }
