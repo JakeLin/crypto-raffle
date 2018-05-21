@@ -4,10 +4,15 @@ import Web3 from 'web3';
 import logo from './logo.svg';
 import './App.css';
 
-const { abi, networks } = require('./contracts/Raffle.json');
-
+// Use pseudorandom number generator 
+// const { abi, networks } = require('./contracts/Raffle.json');
 // Support ropsten testnet
-const address = networks['3'].address;
+// const address = networks['3'].address;
+
+// Use Oraclize random
+const { abi } = require('./contracts/RaffleInterface.json');
+const address = '0x2dc1cc65ca2cd166ffbc33888f2f95f723eae7a9'; // Oraclize random number using Ladger
+const address = '0xd194454a181e677b35956fe6dd2e0e4082b3ed87'; // Oraclize random number using Query
 
 class App extends Component {
   state = {
@@ -36,6 +41,7 @@ class App extends Component {
         }
 
         const raffle = new web3.eth.Contract(abi, address)
+        console.log(raffle.methods);
         const network = await web3.eth.net.getNetworkType();
         const owner = await raffle.methods.owner().call();
         const players = await raffle.methods.getPlayers().call();

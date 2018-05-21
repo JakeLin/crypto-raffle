@@ -1,6 +1,6 @@
 pragma solidity ^0.4.20;
 
-import "github.com/oraclize/ethereum-api/oraclizeAPI.sol";
+import "github.com/oraclize/ethereum-api/oraclizeAPI_0.5.sol";
 
 /**
  * @title SafeMath
@@ -52,9 +52,8 @@ contract RaffleUsingOraclize is usingOraclize {
     using SafeMath for uint;
     
     address public owner;
-    address[] internal players;
+    address[] private players;
     mapping(bytes32=>bool) validIds;
-    event NewRandomNumberUint(uint);
 
     function RaffleUsingOraclize() public {
         owner = msg.sender;
@@ -94,8 +93,10 @@ contract RaffleUsingOraclize is usingOraclize {
     // the proof validity is fully verified on-chain
     function __callback(bytes32 _queryId, string _result, bytes _proof) public
     { 
-        if (!validIds[_queryId]) revert();
-        if (msg.sender != oraclize_cbAddress()) revert();
+        // only allow Oraclize to call this function
+        require(msg.sender == oraclize_cbAddress());
+        // validate the ID 
+        require(validIds[_queryId]);
         
         if (oraclize_randomDS_proofVerify__returnCode(_queryId, _result, _proof) != 0) {
             // the proof verification has failed, do we need to take any action here? (depends on the use case)
@@ -108,7 +109,11 @@ contract RaffleUsingOraclize is usingOraclize {
             // this is the highest uint we want to get. It should never be greater than 2^(8*N), where N is the number of random bytes we had asked the datasource to return
             uint randomNumber = uint(keccak256(_result)) % maxRange; // this is an efficient way to get the uint out in the [0, maxRange] range
             
-            NewRandomNumberUint(randomNumber); // this is the resulting random number (uint)
+            uint index = randomNumber % players.length;
+            players[index].transfer(address(this).balance);
+            players = new address[](0);
+
+            validIds[_queryId] = false;
         }
     }
 }

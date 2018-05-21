@@ -2,6 +2,20 @@
   "contractName": "RaffleInterface",
   "abi": [
     {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "constant": false,
       "inputs": [],
       "name": "buy",
@@ -38,20 +52,20 @@
   "deployedBytecode": "0x",
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "pragma solidity ^0.4.23;\n\ninterface RaffleInterface {\n    function buy() external payable;\n    function getPlayers() external view returns (address[]);\n    function pickWinner() external;\n}\n",
+  "source": "pragma solidity ^0.4.23;\n\ncontract RaffleInterface {\n    address public owner;\n    function buy() external payable;\n    function getPlayers() external view returns (address[]);\n    function pickWinner() external;\n}\n",
   "sourcePath": "/Users/jake.lin/dev/Jake/crypto-raffle/contracts/RaffleInterface.sol",
   "ast": {
     "absolutePath": "/Users/jake.lin/dev/Jake/crypto-raffle/contracts/RaffleInterface.sol",
     "exportedSymbols": {
       "RaffleInterface": [
-        242
+        298
       ]
     },
-    "id": 243,
+    "id": 299,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 229,
+        "id": 283,
         "literals": [
           "solidity",
           "^",
@@ -59,25 +73,51 @@
           ".23"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:1"
+        "src": "0:24:2"
       },
       {
         "baseContracts": [],
         "contractDependencies": [],
-        "contractKind": "interface",
+        "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 242,
+        "id": 298,
         "linearizedBaseContracts": [
-          242
+          298
         ],
         "name": "RaffleInterface",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
+            "constant": false,
+            "id": 285,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "scope": 298,
+            "src": "57:20:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 284,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "57:7:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
             "body": null,
             "documentation": null,
-            "id": 232,
+            "id": 288,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -85,20 +125,20 @@
             "name": "buy",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 230,
+              "id": 286,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "70:2:1"
+              "src": "95:2:2"
             },
             "payable": true,
             "returnParameters": {
-              "id": 231,
+              "id": 287,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "89:0:1"
+              "src": "114:0:2"
             },
-            "scope": 242,
-            "src": "58:32:1",
+            "scope": 298,
+            "src": "83:32:2",
             "stateMutability": "payable",
             "superFunction": null,
             "visibility": "external"
@@ -106,7 +146,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 238,
+            "id": 294,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -114,23 +154,23 @@
             "name": "getPlayers",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 233,
+              "id": 289,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "114:2:1"
+              "src": "139:2:2"
             },
             "payable": false,
             "returnParameters": {
-              "id": 237,
+              "id": 293,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 236,
+                  "id": 292,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 238,
-                  "src": "140:9:1",
+                  "scope": 294,
+                  "src": "165:9:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -139,19 +179,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 234,
+                      "id": 290,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "140:7:1",
+                      "src": "165:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 235,
+                    "id": 291,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "140:9:1",
+                    "src": "165:9:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -161,10 +201,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "139:11:1"
+              "src": "164:11:2"
             },
-            "scope": 242,
-            "src": "95:56:1",
+            "scope": 298,
+            "src": "120:56:2",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -172,7 +212,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 241,
+            "id": 297,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -180,43 +220,43 @@
             "name": "pickWinner",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 239,
+              "id": 295,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "175:2:1"
+              "src": "200:2:2"
             },
             "payable": false,
             "returnParameters": {
-              "id": 240,
+              "id": 296,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "186:0:1"
+              "src": "211:0:2"
             },
-            "scope": 242,
-            "src": "156:31:1",
+            "scope": 298,
+            "src": "181:31:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 243,
-        "src": "26:163:1"
+        "scope": 299,
+        "src": "26:188:2"
       }
     ],
-    "src": "0:190:1"
+    "src": "0:215:2"
   },
   "legacyAST": {
     "absolutePath": "/Users/jake.lin/dev/Jake/crypto-raffle/contracts/RaffleInterface.sol",
     "exportedSymbols": {
       "RaffleInterface": [
-        242
+        298
       ]
     },
-    "id": 243,
+    "id": 299,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 229,
+        "id": 283,
         "literals": [
           "solidity",
           "^",
@@ -224,25 +264,51 @@
           ".23"
         ],
         "nodeType": "PragmaDirective",
-        "src": "0:24:1"
+        "src": "0:24:2"
       },
       {
         "baseContracts": [],
         "contractDependencies": [],
-        "contractKind": "interface",
+        "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 242,
+        "id": 298,
         "linearizedBaseContracts": [
-          242
+          298
         ],
         "name": "RaffleInterface",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
+            "constant": false,
+            "id": 285,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "scope": 298,
+            "src": "57:20:2",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 284,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "57:7:2",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
             "body": null,
             "documentation": null,
-            "id": 232,
+            "id": 288,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -250,20 +316,20 @@
             "name": "buy",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 230,
+              "id": 286,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "70:2:1"
+              "src": "95:2:2"
             },
             "payable": true,
             "returnParameters": {
-              "id": 231,
+              "id": 287,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "89:0:1"
+              "src": "114:0:2"
             },
-            "scope": 242,
-            "src": "58:32:1",
+            "scope": 298,
+            "src": "83:32:2",
             "stateMutability": "payable",
             "superFunction": null,
             "visibility": "external"
@@ -271,7 +337,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 238,
+            "id": 294,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -279,23 +345,23 @@
             "name": "getPlayers",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 233,
+              "id": 289,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "114:2:1"
+              "src": "139:2:2"
             },
             "payable": false,
             "returnParameters": {
-              "id": 237,
+              "id": 293,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 236,
+                  "id": 292,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 238,
-                  "src": "140:9:1",
+                  "scope": 294,
+                  "src": "165:9:2",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -304,19 +370,19 @@
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 234,
+                      "id": 290,
                       "name": "address",
                       "nodeType": "ElementaryTypeName",
-                      "src": "140:7:1",
+                      "src": "165:7:2",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
                       }
                     },
-                    "id": 235,
+                    "id": 291,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "140:9:1",
+                    "src": "165:9:2",
                     "typeDescriptions": {
                       "typeIdentifier": "t_array$_t_address_$dyn_storage_ptr",
                       "typeString": "address[]"
@@ -326,10 +392,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "139:11:1"
+              "src": "164:11:2"
             },
-            "scope": 242,
-            "src": "95:56:1",
+            "scope": 298,
+            "src": "120:56:2",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "external"
@@ -337,7 +403,7 @@
           {
             "body": null,
             "documentation": null,
-            "id": 241,
+            "id": 297,
             "implemented": false,
             "isConstructor": false,
             "isDeclaredConst": false,
@@ -345,30 +411,30 @@
             "name": "pickWinner",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 239,
+              "id": 295,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "175:2:1"
+              "src": "200:2:2"
             },
             "payable": false,
             "returnParameters": {
-              "id": 240,
+              "id": 296,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "186:0:1"
+              "src": "211:0:2"
             },
-            "scope": 242,
-            "src": "156:31:1",
+            "scope": 298,
+            "src": "181:31:2",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "external"
           }
         ],
-        "scope": 243,
-        "src": "26:163:1"
+        "scope": 299,
+        "src": "26:188:2"
       }
     ],
-    "src": "0:190:1"
+    "src": "0:215:2"
   },
   "compiler": {
     "name": "solc",
@@ -376,5 +442,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.0",
-  "updatedAt": "2018-05-21T08:02:24.429Z"
+  "updatedAt": "2018-05-21T12:35:23.128Z"
 }
